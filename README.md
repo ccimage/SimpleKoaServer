@@ -10,5 +10,6 @@ node dist/server.bundle.js
 ```
 
 > put your pages into ./client
+
 > visit page from browser like http://127.0.0.1:3000/index.html
 
