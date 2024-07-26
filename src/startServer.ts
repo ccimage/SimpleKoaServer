@@ -1,26 +1,22 @@
 import RunLog from "./common/RunLog";
 import AdminServer from "./serverImplement/adminServer";
 
+export interface StartOptions {
+    port: number;
+}
+
 export default class StartServer {
     private _adminServer: AdminServer | undefined = undefined;
-    public async start(param: any, index: number) {
-        let startParam: any = 0;
-        if (index >= 0 && index < param.length) {
-            startParam = param[index];
-        }
-        if (!startParam) {
-            RunLog.output("Start param not found.");
-            return {};
-        }
-        return this.startServer(startParam);
+    public async start(options: StartOptions) {
+        return this.startServer(options);
     }
 
-    private async startServer(param: any) {
+    private async startServer(options: StartOptions) {
         try {
             /** 从配置启动 */
-            if (param.admin) {
+            if (options.port) {
                 this._adminServer = new AdminServer("admin server");
-                return await this._adminServer.startServer(param.admin.port);
+                return await this._adminServer.startServer(options.port);
             }
         } catch (ex: any) {
             RunLog.assert(`Start Server Exception:${ex.message}`);

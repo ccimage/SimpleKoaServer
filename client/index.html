@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>客户端</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>
+      input.form-control {width: 70%; min-width: 300px; max-width: 770px;}
+      .fairLength {font-family: Consolas, 'Courier New', monospace, 'Droid Sans Mono', Monaco;}
+      label {
+        background-color: #9055ee;
+        color: white;
+        padding: 5px 10px;
+        line-height: 40px;
+      }
+      #errorMessagePanel{background-color: red; color: white; line-height: 36px; padding: 0 10px;}
+    </style>
+    <script src="zepto.min.js"></script>
+
+  </head>
+<body>
+  <section id="container" class="">
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <!-- page start-->
+            <section class="panel">
+    <header class="panel-heading">
+        <b></b>
+    </header>
+    <form class="form-horizontal tasi-form" method="post" action="" id="loginForm">
+        <div class="panel-body">
+            <div class="form-group">
+                <input id="username" type="text"></input> 
+            </div>
+            <div class="form-group">
+                <input id="password" type="password"></label>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="button" class="btn btn-primary" id="doLogin">登录</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-lg-offset-2 col-lg-10">
+        <div class="alert alert-block alert-danger fade in"  id="errorMessagePanel" style="display:none">
+            <span id="errorMessage"></span>
+        </div>
+    </div>
+</section>
+<script>
+    $("#doLogin").click(()=>{
+        doLogin();
+    })
+    function doLogin() {
+        hideError();
+        const username = $("#username").val();
+        const password = $("#password").val();
+        $.post("/login", {username, password}, function(rsp) {
+            if (rsp.code === 0) {
+                $("#loginForm").hide();
+            } else {
+                showError(rsp.message);
+            }
+        });
+    }
+</script>
+        
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+  </section>
+</body>
+</html>
